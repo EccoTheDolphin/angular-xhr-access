@@ -6,12 +6,12 @@
 
 [AngularJS](http://angularjs.org/) framework provides
 [**$htpp**](https://docs.angularjs.org/api/ng/service/$http) service for
-accessing HTTP servers. As for now, this service does not support **progress**
-notifications, nor does it provide access to underlying
+accessing HTTP servers. As for now, this service neither supports **progress**
+notifications, nor provides access to the underlying
 [**XHR**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
 object. This module provides services that allow you to get access
-to underling **XHR** and thus grants you ability to receive
-**progress** notification or, for example,
+to underling **XHR** and thus grants you the ability to receive
+**progress** notification or, for example, to
 [**abort**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#abort%28%29)
 already running request.
 
