@@ -63,16 +63,19 @@ XHR access:
       '$log',
       'XhrAccessService',
       function ($http, $log, xhra) {
-        var url = 'http://www.google.com'
+        'use strict';
+        var url = 'https://api.github.com/';
         //modify url and provide callback
         //NOTE: URL WILL BE RESTORED TO ORIGINAL STATE BEFORE ACTUAL AJAX CALL
         url = xhra.hookupUrl(url, function (xhr) {
           //here we have access to xhr object
-          $log.log(xhr);
+          $log.log('your XHR object:', xhr);
         });
-        $http(url).then(function(result) {
+        //make AJAX request
+        $http.get(url).then(function (result) {
           $log.log(result.data);
         });
+      }
     });
 
 Progress event:
