@@ -54,53 +54,57 @@ this module provides.
 
 ##Usage
 
-XHR access:
+**XHR access:**
 
-    angular.module('app', [
-      'angularXhrAccess'
-    ]).run([
-      '$http',
-      '$log',
-      'XhrAccessService',
-      function ($http, $log, xhra) {
-        'use strict';
-        var url = 'https://api.github.com/';
-        //modify url and provide callback
-        //NOTE: URL WILL BE RESTORED TO ORIGINAL STATE BEFORE ACTUAL AJAX CALL
-        url = xhra.hookupUrl(url, function (xhr) {
-          //here we have access to xhr object
-          $log.log('your XHR object:', xhr);
-        });
-        //make AJAX request
-        $http.get(url).then(function (result) {
-          $log.log(result.data);
-        });
-      }
+```js
+angular.module('app', [
+  'angularXhrAccess'
+]).run([
+  '$http',
+  '$log',
+  'XhrAccessService',
+  function ($http, $log, xhra) {
+    'use strict';
+    var url = 'https://api.github.com/';
+    //modify url and provide callback
+    //NOTE: URL WILL BE RESTORED TO ORIGINAL STATE BEFORE ACTUAL AJAX CALL
+    url = xhra.hookupUrl(url, function (xhr) {
+      //here we have access to xhr object
+      $log.log('your XHR object:', xhr);
     });
+    //make AJAX request
+    $http.get(url).then(function (result) {
+      $log.log(result.data);
+    });
+  }
+});
+```
 
-Progress event:
+**Progress event:**
 
-    angular.module('app', [
-      'angularXhrAccess'
-    ]).run([
-      '$http',
-      '$log',
-      'XhrProgressService',
-      function ($http, $log, xhrp) {
-        'use strict';
-        var url = 'https://api.github.com/';
-        var form = new FormData();
-        form.append('example_field', 'example_field');
-        //modify url and provide callback
-        //NOTE: URL WILL BE RESTORED TO ORIGINAL STATE BEFORE ACTUAL AJAX CALL
-        url = xhrp.hookupUrl(url, function (evt) {
-          //here we have access to *progress* event
-          $log.log('your *progress* event:', evt);
-        });
-        var headers = { 'Content-Type' : undefined };
-        //this request will end up with 404, but you will receive *progress* event
-        $http.post(url, form, {headers : headers}).then(function (result) {
-          $log.log(result.data);
-        });
-      }
-    ]);
+```js
+angular.module('app', [
+  'angularXhrAccess'
+]).run([
+  '$http',
+  '$log',
+  'XhrProgressService',
+  function ($http, $log, xhrp) {
+    'use strict';
+    var url = 'https://api.github.com/';
+    var form = new FormData();
+    form.append('example_field', 'example_field');
+    //modify url and provide callback
+    //NOTE: URL WILL BE RESTORED TO ORIGINAL STATE BEFORE ACTUAL AJAX CALL
+    url = xhrp.hookupUrl(url, function (evt) {
+      //here we have access to *progress* event
+      $log.log('your *progress* event:', evt);
+    });
+    var headers = { 'Content-Type' : undefined };
+    //this request will end up with 404, but you will receive *progress* event
+    $http.post(url, form, {headers : headers}).then(function (result) {
+      $log.log(result.data);
+    });
+  }
+]);
+```
