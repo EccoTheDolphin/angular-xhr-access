@@ -12,7 +12,7 @@ notifications, nor does it provide access to underlying
 object. This module provides services that allow you to get access
 to underling **XHR** and thus grants you ability to receive
 **progress** notification or, for example,
-[**abort**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#abort&#40&#41;)
+[**abort**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#abort%281%29)
 already running request.
 
     NOTE: Although the XHR object is a standard, there are variations in its
@@ -54,4 +54,50 @@ this module provides.
 
 ##Usage
 
+XHR access:
 
+    angular.module('app', [
+      'angularXhrAccess'
+    ]).run([
+      '$http',
+      '$log',
+      'XhrAccessService',
+      function ($http, $log, xhra) {
+        var url = 'http://www.google.com'
+        //modify url and provide callback
+        //NOTE: URL WILL BE RESTORED TO ORIGINAL STATE BEFORE ACTUAL AJAX CALL
+        url = xhra.hookupUrl(url, function (xhr) {
+          //here we have access to xhr object
+          $log.log(xhr);
+        });
+        $http(url).then(function(result) {
+          $log.log(result.data);
+        });
+    });
+
+Progress event:
+
+    angular.module('app', [
+      'angularXhrAccess'
+    ]).run([
+      '$http',
+      '$log',
+      'XhrProgressService',
+      function ($http, $log, xhrp) {
+        'use strict';
+        var url = 'https://api.github.com/';
+        var form = new FormData();
+        form.append('example_field', 'example_field');
+        //modify url and provide callback
+        //NOTE: URL WILL BE RESTORED TO ORIGINAL STATE BEFORE ACTUAL AJAX CALL
+        url = xhrp.hookupUrl(url, function (evt) {
+          //here we have access to *progress* event
+          $log.log('your *progress* event:', evt);
+        });
+        var headers = { 'Content-Type' : undefined };
+        //this request will end up with 404, but you will receive *progress* event
+        $http.post(url, form, {headers : headers}).then(function (result) {
+          $log.log(result.data);
+        });
+      }
+    ]);
