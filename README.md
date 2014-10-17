@@ -10,7 +10,7 @@ accessing HTTP servers. As for now, this service neither supports **progress**
 notifications, nor provides access to the underlying
 [**XHR**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
 object. This module provides services that allow you to get access
-to underling **XHR** and thus enables you to receive
+to the underling **XHR** and thus enables you to receive
 **progress** notification or, for example, to
 [**abort**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#abort%28%29)
 already running request.
