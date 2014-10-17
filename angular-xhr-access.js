@@ -12,35 +12,40 @@ angular.module('angularXhrAccess', [])
       }
       var callbacks = {
       };
-      var XMLHttpRequest = window.XMLHttpRequest;
+      var XMLHttpRequest   = window.XMLHttpRequest;
       var expr_progress_id = new RegExp('\\?' + prefix_str + '=[0-9]+$');
 
-      window.XMLHttpRequest = function () {
+      if (XMLHttpRequest) {
+        window.XMLHttpRequest = function () {
 
-        var xhr = new XMLHttpRequest();
-        var open = xhr.open;
-        xhr.open = function () {
-          var args   = Array.prototype.slice.call(arguments);
-          var url    = args[1];
-          var result = expr_progress_id.exec(url);
-          if (result) {
-            var callback_id = url.substring(result.index);
-            var prefix      = '?' + prefix_str + '=';
-            callback_id     = callback_id.substring(prefix.length);
-            url = url.substring(0, result.index);
+          var xhr = new XMLHttpRequest();
+          var open = xhr.open;
+          xhr.open = function () {
+            var args   = Array.prototype.slice.call(arguments);
+            var url    = args[1];
+            var result = expr_progress_id.exec(url);
+            if (result) {
+              var callback_id = url.substring(result.index);
+              var prefix      = '?' + prefix_str + '=';
+              callback_id     = callback_id.substring(prefix.length);
+              url = url.substring(0, result.index);
 
-            if (callbacks[callback_id]) {
-              callbacks[callback_id](xhr);
-              delete callbacks[callback_id];
+              if (callbacks[callback_id]) {
+                callbacks[callback_id](xhr);
+                delete callbacks[callback_id];
+              }
             }
-          }
-          args[1]  = url;
-          open.apply(xhr, args);
+            args[1]  = url;
+            open.apply(xhr, args);
+          };
+          return xhr;
         };
-        return xhr;
-      };
+      }
       return {
         hookupUrl : function (url, callback, xhr_decorator) {
+          if (!XMLHttpRequest) {
+            return url;
+          }
           xhr_decorator = xhr_decorator || angular.identity;
           var id = Math.random().toString().substring(2);
           url = url + '?' + prefix_str + '=' + id;
@@ -85,8 +90,8 @@ angular.module('angularXhrAccess', [])
               xhr.upload.removeEventListener(event_name, finalize);
             });
           };
-          if (xhr.upload &&
-                xhr.upload.addEventListener && xhr.upload.removeEventListener) {
+          if (xhr.upload && xhr.upload.addEventListener &&
+              xhr.upload.removeEventListener) {
             xhr.upload.addEventListener(progress_event, progress);
             fini_events.forEach(function (event_name) {
               xhr.upload.addEventListener(event_name, finalize);
