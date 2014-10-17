@@ -11,7 +11,9 @@ notifications, nor does it provide access to underlying
 [**XHR**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
 object. This module provides services that allow you to get access
 to underling **XHR** and thus grants you ability to receive
-**progress** notification or, for example, **cancel** already running request.
+**progress** notification or, for example,
+[**abort**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#abort&#40&#41;)
+already running request.
 
     NOTE: Although the XHR object is a standard, there are variations in its
     behavior on different browsers - so use it with caution.
