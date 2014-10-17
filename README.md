@@ -1,4 +1,4 @@
-#angularXhrAccess
+#Angular XHR Access
 
 ---
 
@@ -12,7 +12,7 @@ notifications, nor does it provide access to underlying
 object. This module provides services that allow you to get access
 to underling **XHR** and thus grants you ability to receive
 **progress** notification or, for example,
-[**abort**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#abort%281%29)
+[**abort**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#abort%28%29)
 already running request.
 
     NOTE: Although the XHR object is a standard, there are variations in its
