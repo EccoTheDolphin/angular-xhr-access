@@ -22,10 +22,10 @@ already running request.
 ## About
 
 **angularXhrAccess** is a module for the [AngularJS](http://angularjs.org/)
-framework. This module provides the following services:
+framework. It provides the following services:
 
-* **XhrAccessService** - gives you ability to access **XHR** instance that was
-created by **$http** service.
+* **XhrAccessService** - gives you the ability to access **XHR** instance that
+was created by **$http** service.
 * **XhrProgressService** - provides you with "quick and dirty" way to receive
 **progress** notification for your ajax requests.
 
@@ -35,12 +35,13 @@ created by **$http** service.
 should use this module only if you know what you are doing.
 
 1. Current AngularJS implementation uses **window.XMLHttpRequest** to create
-**XHR** for **$http** service. This module overrides this global object with
-tiny wrapper and after creating new **XHR** monkey-patches its **open**
-method to inject some custom logic.
+**XHR** for **$http** service. This module overrides this global object with a
+tiny wrapper. When angular tries to create **xhr** it creates this wrapper
+instead, and upon creation this wrapper monkey-patches **open** method of
+original **xhr** to inject some custom logic.
 
 2. When **http** service calls **open** of its **xhr** object it actually
-calls our monkey-patched version of **open** which in turn 
+calls our monkey-patched version of **open** which in turn
 (after our custom logic is executed) calls original method.
 
 3. This custom logic mentioned above does the following:
