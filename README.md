@@ -5,7 +5,7 @@
 ## Motivation
 
 [AngularJS](http://angularjs.org/) framework provides
-[**$htpp**](https://docs.angularjs.org/api/ng/service/$http) service for
+[**$http**](https://docs.angularjs.org/api/ng/service/$http) service for
 accessing HTTP servers. As for now, this service neither supports **progress**
 notifications, nor provides access to the underlying
 [**XHR**](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
@@ -40,14 +40,14 @@ tiny wrapper. When angular tries to create **xhr** it creates this wrapper
 instead, and upon creation this wrapper monkey-patches **open** method of
 original **xhr** to inject some custom logic.
 
-2. When **http** service tries to call **open** method of its **xhr** object
+2. When **http** service tries to call **open** method of its **xhr** object,
 it actually calls our monkey-patched version of this method, which in turn
 (after our custom logic is executed) calls original.
 
 3. This custom logic mentioned above does the following:
-  1. It searches for specific pattern in a url.
-  2. If url contains this specifice pattern it **removes this pattern**
-  from a url, and than calls callbacks corresponding to that pattern.
+  1. It searches for a specific pattern in a url.
+  2. If url contains this specific pattern it removes this pattern from a url
+  and then calls callbacks corresponding  to this pattern.
 
 4. To provide callbacks and modify original url you must use services that
 this module provides.

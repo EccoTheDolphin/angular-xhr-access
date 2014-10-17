@@ -1,0 +1,25 @@
+{
+  "name": "angular-xhr-access",
+  "main": "angular-xhr-access.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/EccoTheDolphin/angularXhrAccess",
+  "authors": [
+    "ecco_the_dolphin <kupokupokupopo@gmail.com>"
+  ],
+  "description": "AngularJS service for getting access to a native XHR object used by $htpp service",
+  "keywords": [
+    "angular",
+    "xhr",
+    "access",
+    "progress",
+    "$http"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
