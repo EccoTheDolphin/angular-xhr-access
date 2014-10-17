@@ -109,3 +109,12 @@ angular.module('app', [
   }
 ]);
 ```
+
+##Install
+
+####Bower
+
+```sh
+bower install angular-xhr-access
+```
+
